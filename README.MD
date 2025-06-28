@@ -23,7 +23,8 @@ Este proyecto es una aplicación desarrollada en Node.js que utiliza MySQL, Expr
    cd backend
 
 2. **Instalar dependencias**:
-   ```npm i 
+   ```bash 
+      npm i 
 
 3. **Configurar variables de entorno: Crear un archivo .env en la raíz del proyecto con las siguientes variables:**:
    ```PORT_DB=3306
@@ -53,7 +54,7 @@ Este proyecto es una aplicación desarrollada en Node.js que utiliza MySQL, Expr
 
 - **Node.js: Entorno de ejecución para JavaScript**
 - **Express: Framework para crear aplicaciones web**
-- **RMySQL: Base de datos relacional**
-- **NSocket.IO: Comunicación en tiempo real**
+- **MySQL: Base de datos relacional**
+- **Socket.IO: Comunicación en tiempo real**
 - **SWhatsApp Web.js: Integración con WhatsApp para enviar notificaciones**
 
