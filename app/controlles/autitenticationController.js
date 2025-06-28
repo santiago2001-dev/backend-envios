@@ -20,3 +20,23 @@ exports.register = async (req, res) => {
     }
 
 } 
+
+
+const loginUseCase = require('../use-cases/auth/loginUseCase');
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const result = await loginUseCase.loginUser(email, password);
+        
+        if (result.error) {
+            return res.status(400).json({ message: result.error });
+        }
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({
+            message: "Error al iniciar sesión",
+            error: error.message,
+          });
+    }
+}

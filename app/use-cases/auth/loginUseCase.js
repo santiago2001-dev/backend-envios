@@ -1,5 +1,8 @@
 
 const userRepository = require("../../repository/userReposiory");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 exports.loginUser = async (email, password) => {
     try {
       const user = await userRepository.findByEmail(email);
@@ -8,7 +11,7 @@ exports.loginUser = async (email, password) => {
         return { error: "Usuario no encontrado" };
       }
   
-      const hash = user.hash;
+      const hash = user.password;
       const validationPass = bcrypt.compareSync(
         password,
         hash

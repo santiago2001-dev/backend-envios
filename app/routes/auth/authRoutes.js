@@ -54,9 +54,56 @@ router.post(
  
     validExpress,
      rejexPass,
-    //existeMailTrue,
-    //existeUser,
+  
     authController.register
+  );
+
+
+  /**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Endpoints de autenticación y registro
+ */
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: lgin de usuario existente
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *              
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "usuario@empresa.com"
+ *               password:
+ *                 type: string
+ *                 example: "123456"
+ *              
+ *              
+ *     responses:
+ *       201:
+ *         description: Usuario registrado correctamente
+ *       400:
+ *         description: Error en los datos o validación
+ */
+
+  router.post(
+    "/login",
+    check("email", "Debe proporcionar un email válido").notEmpty().isEmail(),
+    check("password", "La contraseña es obligatoria").notEmpty(),
+    authController.login
   );
  
   module.exports = router;
