@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>whatsapptsApp Web QR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        img {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>whatsapptsApp Web QR Code</h1>
+    <div id="qr-container">
+        <p>Loading QR Code...</p>
+    </div>
+    <script>
+        const  url  = "http://localhost:3100/api/"
+        async function fetchQrCode() {
+            try {
+                const response = await fetch(`${url}whatsapp/login`);
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.session.qrData) {
+                        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(data.session.qrData)}&size=400x400`;
+                        document.getElementById('qr-container').innerHTML = `<img src="${qrCodeUrl}" alt="QR Code">`;
+                    } else if (data.session.status) {
+                        document.getElementById('qr-container').innerHTML = '<p>Inicio de sesión correcta.</p>';
+                        clearInterval(qrInterval); // Stop polling once session is started
+                    } else {
+                        document.getElementById('qr-container').innerHTML = '<p>Failed to load QR code. Please try again later.</p>';
+                    }
+                } else {
+                    document.getElementById('qr-container').innerHTML = '<p>Failed to load QR code. Please try again later.</p>';
+                }
+            } catch (error) {
+                console.error('Error fetching QR code:', error);
+                document.getElementById('qr-container').innerHTML = '<p>Error fetching QR code. Check console for details.</p>';
+            }
+        }
+
+        // Polling to refresh the QR code every 5 seconds
+        const qrInterval = setInterval(fetchQrCode, 9000); // Fetch QR code every 5 seconds
+
+        // Initial fetch
+        fetchQrCode();
+    </script>
+</body>
+</html>

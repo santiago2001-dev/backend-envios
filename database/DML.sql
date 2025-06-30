@@ -57,4 +57,56 @@ BEGIN
 END
 
 
+--- envios
 
+CREATE PROCEDURE CotizarEnvio (
+    IN origen_ VARCHAR(100),
+    IN destino_ VARCHAR(100),
+    IN peso DECIMAL(10,2),
+    IN alto DECIMAL(10,2),
+    IN ancho DECIMAL(10,2),
+    IN largo DECIMAL(10,2)
+)
+BEGIN
+    DECLARE peso_volumen DECIMAL(10,2);
+    DECLARE peso_final DECIMAL(10,2);
+
+    SET peso_volumen = CEIL((alto * ancho * largo) / 2500);
+    SET peso_final = IF(peso_volumen > peso, peso_volumen, peso);
+
+    SELECT valor 
+    FROM tarifas 
+    WHERE origen = origen_ AND destino = destino_
+      AND peso_min <= peso_final AND peso_max >= peso_final
+    LIMIT 1;
+END
+
+
+
+
+CREATE PROCEDURE CrearEnvio (
+    IN usuario_id INT,
+    IN origen_ VARCHAR(100),
+    IN destino_ VARCHAR(100),
+    IN peso DECIMAL(10,2),
+    IN alto DECIMAL(10,2),
+    IN ancho DECIMAL(10,2),
+    IN largo DECIMAL(10,2),
+    IN valor_cotizado DECIMAL(10,2)
+)
+BEGIN
+    DECLARE peso_volumen DECIMAL(10,2);
+    DECLARE peso_utilizado DECIMAL(10,2);
+    DECLARE envio_id INT;
+
+    SET peso_volumen = CEIL((alto * ancho * largo) / 2500);
+    SET peso_utilizado = IF(peso_volumen > peso, peso_volumen, peso);
+
+    INSERT INTO envios (usuario_id, origen, destino, peso, alto, ancho, largo, peso_utilizado, valor_cotizado)
+    VALUES (usuario_id, origen_, destino_, peso, alto, ancho, largo, peso_utilizado, valor_cotizado);
+
+    SET envio_id = LAST_INSERT_ID();
+
+    INSERT INTO envio_estados (envio_id, estado)
+    VALUES (envio_id, 'En espera');
+END

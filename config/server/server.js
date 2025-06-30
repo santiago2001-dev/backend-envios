@@ -8,12 +8,10 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
     this.autenticationRoute = "/api/auth";
-    this.contacsRoute = "/api/contacts";
-    this.enterPriseRoute = "/api/enterprises";
-    this.licenciaroute = "/api/licencia";
-    this.packageRoute = "/api/package";
-    this.whaRoutes = "/api/wha";
-    this.visitsRoute = "/api/visits";
+    this.shipmentsRoute = "/api/shipments";
+    this.tarifasRoute = "/api/tarifas";
+    this.whatsAppRoute = "/api/whatsapp";
+
 
     this.initMiddlewares();
     this.routes();
@@ -36,12 +34,10 @@ class Server {
 
   routes() {
     this.app.use(this.autenticationRoute, require("../../app/routes/auth/authRoutes"));
-    // this.app.use(this.contacsRoute, require("../routes/contactsRouter"));
-    // this.app.use(this.enterPriseRoute, require("../routes/enterpriseRouter"));
-    // this.app.use(this.licenciaroute, require("../routes/licenciaRouter"));
-    // this.app.use(this.whaRoutes, require("../middelwares/whatssap/botRoutes"));
-    // this.app.use(this.packageRoute, require("../routes/packageRouter"));
-    // this.app.use(this.visitsRoute, require("../routes/visitsRouter"));
+    this.app.use(this.shipmentsRoute, require("../../app/routes/Shipping/shippingRoutes"));
+    this.app.use(this.tarifasRoute, require("../../app/routes/trarifas/tarifasRouter"));
+    this.app.use(this.whatsAppRoute, require("../../app/routes/whatssApp/WhatssAppRoutes"));
+   
   }
 
   listen() {

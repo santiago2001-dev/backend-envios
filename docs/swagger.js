@@ -1,27 +1,26 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'API de envios',
-      version: '1.0.0',
-      description: 'Documentación de la API REST sin prefijo Bearer',
+      title: "API de envios",
+      version: "1.0.0",
+      description: "Documentación de la API REST sin prefijo Bearer",
     },
     servers: [
       {
         url: `http://localhost:${process.env.PORT}/api`,
       },
     ],
-    
-    
+
     components: {
       securitySchemes: {
         Authorization: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'Authorization',
+          type: "apiKey",
+          in: "header",
+          name: "Authorization",
         },
       },
     },
@@ -31,16 +30,9 @@ const options = {
       },
     ],
   },
-  apis: [
-    './app/routes/auth/authRoutes.js',
-    
-    // './routes/contactsRouter.js',
-    // './routes/enterpriseRouter.js',
-    // './routes/licenciaRouter.js',
-    // './middelwares/whatssap/botRoutes.js',
-    // './routes/packageRouter.js',
-    // './routes/visitsRouter.js',
-  ],
+  apis: ["./app/routes/auth/authRoutes.js", "./app/routes/Shipping/shippingRoutes.js","./app/routes/trarifas/tarifasRouter.js", 
+    "./app/routes/whatssApp/WhatssAppRoutes.js"]
+  
 };
 
 const specs = swaggerJsdoc(options);
