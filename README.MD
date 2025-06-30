@@ -41,13 +41,13 @@ Este proyecto es una aplicación desarrollada en Node.js que utiliza MySQL, Expr
 6. **En la carpeta database encontraras los scrips de la base de datos a migrar**
 
 ## Documentación de la API
-   - **La documentación de la API está disponible en Swagger. Puedes acceder a ella desde el siguiente enlace:http://localhost:3100/api-docs**
+   - **La documentación de la API está disponible en Swagger. Puedes acceder a ella desde el siguiente enlace:https://envios.devinovate.online/api-docs/**
 
 
 
    ## Pruebas en producción
 
-   - **LLa API está desplegada en producción y puede ser probada en el siguiente enlace::https://backend-envios.devinovate.online/api/** 
+   - **LLa API está desplegada en producción y puede ser probada en el siguiente enlace::https://envios.devinovate.online/api/** 
 
 
    ## tegnologias 
