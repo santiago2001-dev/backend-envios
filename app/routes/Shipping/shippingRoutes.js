@@ -180,47 +180,7 @@ router.post(
   createShipping
 );
 
-/**
- * @swagger
- * /shipments/events/{id}:
- *   get:
- *     summary: Obtener los estados del envío por ID
- *     tags: [Shipments]
- *     security:
- *       - Authorization: []  # Indica que este endpoint requiere el token en el header
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID del envío
- *         schema:
- *           type: string
- *           example: "12345"
- *     responses:
- *       200:
- *         description: Estados del envío retornados exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 historialEstados:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       status:
- *                         type: string
- *                         example: "En espera"
- *                       date:
- *                         type: string
- *                         format: date-time
- *                         example: "2025-06-29T21:00:00.000Z"
- *       404:
- *         description: Envío no encontrado
- */
 
-router.get("/events/:id", validarToken, getShippingById);
 
 /**
  * @swagger
