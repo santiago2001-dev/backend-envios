@@ -295,6 +295,6 @@ router.get("/events/:id", validarToken, getShippingById);
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/user/:userId", validarToken, getAllByUserId);
+router.get("/user/:userId", getAllByUserId);
 
 module.exports = router;
