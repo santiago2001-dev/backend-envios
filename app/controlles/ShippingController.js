@@ -1,6 +1,7 @@
 const createShippingUser = require("../use-cases/Shiping/createShippingUseCase");
 const getShippinbByIdUseCase = require("../use-cases/Shiping/getShippingByIdUseCase");
 const quoteShippingUser = require("../use-cases/Shiping/quoteShippingUseCase");
+const getStatusByIdUseCase = require("../use-cases/Shiping/getShippingByIdUseCase");
 exports.createShipping = async (req, res) => {
   try {
     const {
@@ -43,7 +44,7 @@ exports.getShippingById = async (req, res) => {
   const intervalId = setInterval(async () => {
     try {
       const id = req.params.id;
-      const result = await getShippinbByIdUseCase.execute(id);
+      const result = await   getStatusByIdUseCase.execute(id);
       res.write(`data: ${result}\n\n`);
     } catch (error) {
       res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
