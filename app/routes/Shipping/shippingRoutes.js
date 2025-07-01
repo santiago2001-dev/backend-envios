@@ -82,7 +82,6 @@ router.post(
   check("alto", "el alto no debe ser menor a 0").isFloat({ gt: 0 }),
   check("ancho", "el ancho no debe ser menor a 0").isFloat({ gt: 0 }),
   validExpress,
-  validarToken,
   quoteShipping
 );
 
