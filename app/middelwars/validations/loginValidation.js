@@ -1,4 +1,5 @@
 const userRepository = require("../../repository/userReposiory");
+const jwt = require("jsonwebtoken");
 
 const rejexPass = async (req, res, next) => {
     const contrasena = await req.body.Password;
@@ -15,7 +16,22 @@ const rejexPass = async (req, res, next) => {
     }
   };
 
-
+  const  validarToken = (req, res, next) => {
+    const token = req.headers.authorization;
+  
+    if (!token) {
+      return res.status(401).json({ error: "Token no proporcionado" });
+    }
+  
+    jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+      if (error) {
+        return res.status(401).json({ error: "Token inválido o vencido" });
+      }
+      req.user =  decoded;
+  
+      next();
+    });
+  };
   // middlewares/emailExists.js
 
   const emailExists = async (req, res, next) => {
@@ -47,4 +63,4 @@ const rejexPass = async (req, res, next) => {
   
     return regxp.test(pass);
   };
-  module.exports = { rejexPass,emailExists};
+  module.exports = { rejexPass,emailExists,validarToken};

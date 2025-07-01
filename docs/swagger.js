@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT}/api`,
+        url: `${process.env.SERVER}:${process.env.PORT}/api`,
       },
     ],
 

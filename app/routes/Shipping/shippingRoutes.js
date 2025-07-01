@@ -5,6 +5,7 @@ const {
   getShippingById,
   quoteShipping,
 } = require("../../controlles/ShippingController");
+const { validarToken } = require("../../middelwars/validations/loginValidation");
 
 const router = require("express").Router();
 
@@ -80,6 +81,7 @@ router.post(
   check("alto", "el alto no debe ser menor a 0").isFloat({ gt: 0 }),
   check("ancho", "el ancho no debe ser menor a 0").isFloat({ gt: 0 }),
   validExpress,
+  validarToken,
   quoteShipping
 );
 
@@ -89,6 +91,8 @@ router.post(
  *   post:
  *     summary: Crear un envío previamente cotizado
  *     tags: [Shipments]
+ *     security:
+ *       - Authorization: []  # Indica que este endpoint requiere el token en el header
  *     requestBody:
  *       required: true
  *       content:
@@ -171,22 +175,26 @@ router.post(
   check("alto", "el alto no debe ser menor a 0").isFloat({ gt: 0 }),
   check("ancho", "el ancho no debe ser menor a 0").isFloat({ gt: 0 }),
   validExpress,
+  validarToken,
   createShipping
 );
 
 /**
  * @swagger
- * /shipments/status/{id}:
+ * /shipments/events/{id}:
  *   get:
- *     summary: Consultar estado del envío por ID
+ *     summary: Obtener los estados del envío por ID
  *     tags: [Shipments]
+ *     security:
+ *       - Authorization: []  # Indica que este endpoint requiere el token en el header
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
+ *         description: ID del envío
  *         schema:
- *           type: integer
- *           example: 1
+ *           type: string
+ *           example: "12345"
  *     responses:
  *       200:
  *         description: Estados del envío retornados exitosamente
@@ -211,6 +219,38 @@ router.post(
  *         description: Envío no encontrado
  */
 
-router.get("/status/:id", getShippingById);
+router.get("/events/:id", validarToken, getShippingById);
+
+/**
+ * @swagger
+ * /shipments/events/{id}:
+ *   get:
+ *     summary: Obtener los estados del envío por ID (SSE)
+ *     description: Este endpoint utiliza Server-Sent Events (SSE) para enviar actualizaciones en tiempo real sobre los estados del envío.
+ *     tags: [Shipments]
+ *     security:
+ *       - Authorization: []  # Indica que este endpoint requiere el token en el header
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID del envío
+ *         schema:
+ *           type: string
+ *           example: "12345"
+ *     responses:
+ *       200:
+ *         description: Conexión establecida exitosamente. Los estados del envío se enviarán en tiempo real.
+ *         content:
+ *           text/event-stream:
+ *             schema:
+ *               type: string
+ *               example: "event: shipping\n data: {\"status\": \"En espera\", \"date\": \"2025-06-29T21:00:00.000Z\"}\n\n"
+ *       404:
+ *         description: Envío no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get("/events/:id", validarToken, getShippingById);
 
 module.exports = router;

@@ -34,7 +34,7 @@ exports.getStatusById = async (id) => {
       "SELECT estado, fecha FROM envio_estados WHERE envio_id = ? ORDER BY fecha DESC", [id]
     );
     if (rows.length === 0)  throw   Error({ error: "Envío no encontrado" });
-    return ({ estados: rows });
+    return (rows[0].estado);
   } catch (error) {
     throw error;  }
 }

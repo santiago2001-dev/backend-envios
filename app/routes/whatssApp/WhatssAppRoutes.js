@@ -1,5 +1,6 @@
 const { login } = require("../../../config/WhatssApp/WhatssAppConexion");
 const { logoutWhaJs, notificacionLlegada } = require("../../controlles/whatssAppController");
+const { validarToken } = require("../../middelwars/validations/loginValidation");
 const { notifyWhatsApp } = require("../../middelwars/WhatssApp/WhatssAppService");
 
 const router = require("express").Router();
@@ -80,6 +81,6 @@ router.get("/logout", logoutWhaJs);
  *       500:
  *         description: Error interno del servidor
  */
-router.post("/send", notificacionLlegada);
+router.post("/send",validarToken, notificacionLlegada);
 
 module.exports = router;

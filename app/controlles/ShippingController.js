@@ -3,8 +3,17 @@ const getShippinbByIdUseCase = require("../use-cases/Shiping/getShippingByIdUseC
 const quoteShippingUser = require("../use-cases/Shiping/quoteShippingUseCase");
 exports.createShipping = async (req, res) => {
   try {
-    const { origen, destino, peso, alto, ancho, largo , quotedValue,
-      userId,numeroNotificacion} = req.body;
+    const {
+      origen,
+      destino,
+      peso,
+      alto,
+      ancho,
+      largo,
+      quotedValue,
+      userId,
+      numeroNotificacion,
+    } = req.body;
     const shippingData = {
       origen,
       destino,
@@ -14,7 +23,7 @@ exports.createShipping = async (req, res) => {
       largo,
       quotedValue,
       userId,
-      numeroNotificacion
+      numeroNotificacion,
     };
     const result = await createShippingUser.execute(shippingData);
     res.status(201).json(result);
@@ -26,16 +35,28 @@ exports.createShipping = async (req, res) => {
   }
 };
 exports.getShippingById = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const result = await getShippinbByIdUseCase.execute(id);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({
-      message: "Error al obtener el envío",
-      error: error.message,
-    });
-  }
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+  });
+  const intervalId = setInterval(async () => {
+    try {
+      const id = req.params.id;
+      const result = await getShippinbByIdUseCase.execute(id);
+      res.write(`data: ${result}\n\n`);
+    } catch (error) {
+      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+    }
+  }, 5000);
+
+  // Manejar cierre de conexión para evitar fugas de memoria
+  req.on("close", () => {
+    clearInterval(intervalId);
+    res.end();
+  });
+
+ 
 };
 exports.quoteShipping = async (req, res) => {
   try {
