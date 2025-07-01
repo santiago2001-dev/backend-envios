@@ -252,7 +252,7 @@ router.get("/events/:id", validarToken, getShippingById);
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/events/:id", validarToken, getShippingById);
+router.get("/events/:id", getShippingById);
 
 /**
  * @swagger
@@ -295,6 +295,6 @@ router.get("/events/:id", validarToken, getShippingById);
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/user/:userId", getAllByUserId);
+router.get("/user/:userId", validarToken, getAllByUserId);
 
 module.exports = router;
