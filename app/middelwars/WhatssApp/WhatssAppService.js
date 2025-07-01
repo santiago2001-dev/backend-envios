@@ -12,7 +12,7 @@ exports.notifyWhatsApp = async (infoMessage) => {
     }
   } catch (error) {
     console.error("Error al enviar el mensaje al conductor:", error);
-    throw error;
+    //throw error;
   }
 };
 exports.logout = async() => {
