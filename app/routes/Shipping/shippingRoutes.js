@@ -145,7 +145,7 @@ router.post(
  *               numeroNotificacion:
  *                 type: string
  *                 description: Número de teléfono para notificaciones en formato internacional.
- *                 example: "+573001234567"
+ *                 example: "573001234567"
  *     responses:
  *       201:
  *         description: Envío creado exitosamente
