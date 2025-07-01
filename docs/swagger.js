@@ -15,7 +15,7 @@ const options = {
         //url local
         //url: `${process.env.SERVER}:${process.env.PORT}/api`,
         //url server
-          url: `${process.env.SERVER}/api`,
+         url: `${process.env.SERVER}/api`,
       },
     ],
 

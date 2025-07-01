@@ -58,6 +58,21 @@ exports.getShippingById = async (req, res) => {
 
  
 };
+
+
+exports.getAllByUserId = async (req, res) => {
+  try {
+    const idUser = req.params.userId;
+    console.log("ID del usuario:", idUser);
+    const result = await getShippinbByIdUseCase.execute(idUser);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al obtener los envíos del usuario",
+      error: error.message,
+    });
+  }
+};
 exports.quoteShipping = async (req, res) => {
   try {
     const { origen, destino, peso, alto, ancho, largo } = req.body;

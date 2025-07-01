@@ -1,9 +1,9 @@
-const { getStatusById } = require("../../repository/shippginRepository");
+const { getStatusById, getAllByUser } = require("../../repository/shippginRepository");
 
 exports.execute =async (id) => {
     
     try {
-        return await getStatusById(id);
+        return await getAllByUser(id);
       
     } catch (error) {
         throw error;

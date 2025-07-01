@@ -25,3 +25,22 @@ CREATE TABLE envio_estados (
 );
 
 
+-- envios.envios definition
+
+CREATE TABLE `envios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario_id` int DEFAULT NULL,
+  `origen` varchar(100) DEFAULT NULL,
+  `destino` varchar(100) DEFAULT NULL,
+  `peso` decimal(10,2) DEFAULT NULL,
+  `alto` decimal(10,2) DEFAULT NULL,
+  `ancho` decimal(10,2) DEFAULT NULL,
+  `largo` decimal(10,2) DEFAULT NULL,
+  `peso_utilizado` decimal(10,2) DEFAULT NULL,
+  `valor_cotizado` decimal(10,2) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT 'En espera',
+  `creado_en` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+

@@ -4,6 +4,7 @@ const {
   createShipping,
   getShippingById,
   quoteShipping,
+  getAllByUserId,
 } = require("../../controlles/ShippingController");
 const { validarToken } = require("../../middelwars/validations/loginValidation");
 
@@ -252,5 +253,48 @@ router.get("/events/:id", validarToken, getShippingById);
  *         description: Error interno del servidor
  */
 router.get("/events/:id", validarToken, getShippingById);
+
+/**
+ * @swagger
+ * /shipments/user/{userId}:
+ *   get:
+ *     summary: Obtiene los envíos por ID de usuario
+ *     tags: [Shipping]
+ *     security:
+ *       - Authorization: []  # Indica que este endpoint requiere el token en el header
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         description: ID del usuario
+ *         schema:
+ *           type: string
+ *           example: "67890"
+ *     responses:
+ *       200:
+ *         description: Lista de envíos obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: ID del envío
+ *                   status:
+ *                     type: string
+ *                     description: Estado del envío
+ *                   date:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Fecha del envío
+ *       404:
+ *         description: Usuario no encontrado o sin envíos
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get("/user/:userId", validarToken, getAllByUserId);
 
 module.exports = router;

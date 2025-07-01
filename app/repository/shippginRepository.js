@@ -37,4 +37,20 @@ exports.getStatusById = async (id) => {
     return (rows[0].estado);
   } catch (error) {
     throw error;  }
+
+    
+}
+
+
+exports.getAllByUser = async (id) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT * FROM envios WHERE usuario_id = ? ", [id]
+    );
+    if (rows.length === 0)  throw   Error({ error: "Envío no encontrado" });
+    return (rows);
+  } catch (error) {
+    throw error;  }
+
+    
 }
