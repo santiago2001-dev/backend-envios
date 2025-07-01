@@ -65,7 +65,7 @@ exports.getAllByUserId = async (req, res) => {
   try {
     const idUser = req.params.userId;
     console.log("ID del usuario:", idUser);
-    const result = await getShippinbByIdUseCase.execute(idUser);
+    const result = await getShippinbByIdUseCase.execue(idUser);
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
