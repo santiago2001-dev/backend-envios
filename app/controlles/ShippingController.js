@@ -1,7 +1,7 @@
 const createShippingUser = require("../use-cases/Shiping/createShippingUseCase");
-const getShippinbByIdUseCase = require("../use-cases/Shiping/getShippingByIdUseCase");
+const getShippinbByIdUseCase = require("../use-cases/Shiping/getAllByUserUseCase");
 const quoteShippingUser = require("../use-cases/Shiping/quoteShippingUseCase");
-const getStatusByIdUseCase = require("../use-cases/Shiping/getShippingByIdUseCase");
+const getStatusByIdUseCase = require("../use-cases/Shiping/grtStatusByIdUseCase");
 exports.createShipping = async (req, res) => {
   try {
     const {
